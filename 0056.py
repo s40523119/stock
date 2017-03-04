@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 import requests 
+from math import pi
 import re
-import numpy as np
 import datetime 
-import json
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import DatetimeTickFormatter
+#from bokeh.plotting import figure, output_file, show
+#from bokeh.models import DatetimeTickFormatter
+import plotly as py
+import plotly.plotly as py
+import plotly.graph_objs as go
+plotly.tools.set_credentials_file(username='s40523119', api_key='ABhj5znBdVN2W7kp1iRF')
+plotly.tools.set_config_file(world_readable=True,
+                             sharing='public')
 #載入所需模組
 def stock(stock_id, cycle): #自訂股票函式
     cycle = 'https://tw.quote.finance.yahoo.net/quote/q?type=ta&perd=' + cycle +'&mkt=10&sym=' + stock_id
@@ -30,30 +35,38 @@ o = [open.replace('"o":', '') for open in open] #用.replace將"o":取代成空�
 stock('0056', 'd') 
 
 # 準備圖表資料
-x = date_list
-y = c
+#x = date_list
+#y = c
 
 # 輸出html
 #output_file("lines.html")
 
 # 建立圖表
-TOOLS="resize,crosshair,pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
-p = figure( title="元大高股息日線", x_axis_label=u'日期', y_axis_label=u'收盤價')
+#TOOLS="resize,crosshair,pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
+#p = figure( title="元大高股息日線", x_axis_label=u'日期', y_axis_label=u'收盤價')
 
 # 加入變數
-p.line(x, y, legend=u"元大高股息.", line_width=2) #圖例、線粗
-p.xaxis.formatter=DatetimeTickFormatter(formats=dict(
-        hours=["%Y年-%m月-%d日"],
-        days=["%Y年-%m月-%d日"],
-        months=["%Y年-%m月-%d日"],
-        years=["%Y年-%m月-%d日"],
-    )) #設定時間格式
+#p.line(x, y, legend=u"元大高股息.", line_width=2) #圖例、線粗
+#p.xaxis.formatter=DatetimeTickFormatter(formats=dict(
+        #hours=["%Y年-%m月-%d日"],
+        #days=["%Y年-%m月-%d日"],
+        #months=["%Y年-%m月-%d日"],
+        #years=["%Y年-%m月-%d日"],
+    #)) #設定時間格式
 
-p.xaxis.major_label_orientation = 180/4 #旋轉X軸
+#p.xaxis.major_label_orientation = pi/4 #旋轉X軸
 
 # 顯示結果
-show(p)
-        
+#show(p)
+
+trace0 = Scatter(
+    x= date_list,
+    y= c
+)
+
+data = Data([trace0])
+
+py.plot(data, filename = 'basic-line')
     
     
     
